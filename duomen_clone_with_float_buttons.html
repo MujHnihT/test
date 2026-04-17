@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duo Men - Landing Page Clone</title>
+  <style>
+    :root {
+      --primary: #2b43c7;
+      --primary-dark: #1f339d;
+      --accent: #ff3b4c;
+      --bg: #f6f8fc;
+      --text: #14213d;
+      --muted: #5f6b85;
+      --card: #ffffff;
+      --border: #dbe4f2;
+      --success: #0ea765;
+      --shadow: 0 18px 40px rgba(28, 52, 120, 0.12);
+      --radius: 24px;
+      --container: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(76, 108, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(219, 228, 242, 0.8);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, #55a2ff 100%);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: .04em;
+      box-shadow: 0 10px 24px rgba(43, 67, 199, 0.24);
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.1;
+      letter-spacing: .01em;
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav a:hover { color: var(--primary); }
+
+    .cta-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(43, 67, 199, 0.22);
+    }
+
+    .hero {
+      padding: 34px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(43, 67, 199, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: .9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 1.04;
+      letter-spacing: -.03em;
+      max-width: 760px;
+    }
+
+    .hero p.lead {
+      margin: 18px 0 0;
+      max-width: 690px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(43, 67, 199, 0.22);
+    }
+    .btn-secondary {
+      background: #fff;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%);
+      border: 1px solid rgba(219, 228, 242, 0.95);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 59, 76, 0.18) 0%, transparent 70%);
+      top: -80px;
+      right: -70px;
+    }
+
+    .pack {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 18px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pack-box {
+      aspect-ratio: 1 / 1.18;
+      border-radius: 28px;
+      background: linear-gradient(140deg, #3151db 0%, #2336a7 40%, #ec3147 100%);
+      box-shadow: 0 28px 54px rgba(31, 51, 157, 0.28);
+      padding: 22px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .pack-box .mini {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity: .88;
+    }
+
+    .pack-box .title {
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 900;
+      line-height: .94;
+      letter-spacing: -.04em;
+    }
+
+    .capsule-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .capsule {
+      width: 100%;
+      height: 72px;
+      border-radius: 999px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(40, 62, 139, 0.18);
+      background: linear-gradient(90deg, #f7fbff 0%, #f7fbff 48%, #ffd7dc 48%, #ffd7dc 100%);
+      border: 1px solid rgba(214, 223, 241, 0.8);
+    }
+
+    .capsule::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(43, 67, 199, 0.16), rgba(255, 59, 76, 0.18));
+      opacity: .5;
+    }
+
+    .fact-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .fact {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 16px;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
+
+    .section {
+      padding: 38px 0;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 860px;
+    }
+
+    .symptom-grid, .benefit-grid, .faq-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .symptom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .symptom-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .icon-check {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(14, 167, 101, 0.12);
+      color: var(--success);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .benefit-tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(43, 67, 199, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: .86rem;
+      margin-bottom: 16px;
+    }
+
+    .benefit-card h4 {
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+    }
+
+    .benefit-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .benefit-highlight {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .faq-item details {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      padding: 18px 20px;
+    }
+
+    .faq-item details + details { margin-top: 12px; }
+
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+      color: var(--text);
+      position: relative;
+      padding-right: 26px;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: -2px;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+    .faq-item details[open] summary::after { content: "−"; }
+
+    .faq-item p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .contact-panel {
+      background: linear-gradient(135deg, #2439b7 0%, #172472 100%);
+      color: #fff;
+      padding: 26px;
+      border-radius: 28px;
+      box-shadow: 0 18px 40px rgba(23, 36, 114, 0.28);
+    }
+
+    .contact-panel h4 {
+      margin: 0 0 14px;
+      font-size: 1.7rem;
+    }
+
+    .contact-panel p {
+      margin: 8px 0;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.8;
+    }
+
+    .contact-meta {
+      display: grid;
+      gap: 14px;
+    }
+
+    .meta-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .footer {
+      padding: 24px 0 42px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .94rem;
+    }
+
+    .disclaimer {
+      margin-top: 10px;
+      font-size: .9rem;
+    }
+
+    .float-wrap {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: calc(100vw - 24px);
+    }
+
+    .float-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 216px;
+      padding: 13px 16px;
+      border-radius: 999px;
+      color: #fff;
+      box-shadow: 0 18px 38px rgba(19, 31, 80, 0.24);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 22px 44px rgba(19, 31, 80, 0.28);
+    }
+
+    .float-btn.chat { background: linear-gradient(135deg, #2b43c7 0%, #4f8fff 100%); }
+    .float-btn.call { background: linear-gradient(135deg, #ff3b4c 0%, #ff6a76 100%); }
+
+    .float-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .float-label small {
+      display: block;
+      color: rgba(255,255,255,0.8);
+      font-size: .76rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .float-label strong {
+      display: block;
+      font-size: .96rem;
+      letter-spacing: .01em;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .contact-box,
+      .symptom-grid,
+      .benefit-grid,
+      .fact-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav { display: none; }
+      .hero { padding-top: 22px; }
+      .pack { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .brand-text p,
+      .cta-top { display: none; }
+
+      .container {
+        width: min(var(--container), calc(100% - 20px));
+      }
+
+      .hero-card,
+      .card,
+      .contact-panel,
+      .meta-box {
+        border-radius: 22px;
+      }
+
+      .float-wrap {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .float-btn {
+        min-width: 0;
+        width: 100%;
+        padding: 12px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo-badge">DM</div>
+        <div class="brand-text">
+          <h1>Duo Men</h1>
+          <p>Bụng yên ruột ổn • Landing page clone</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#top">Trang chủ</a>
+        <a href="#gioi-thieu">Duo Men</a>
+        <a href="#faq">Câu hỏi thường gặp</a>
+        <a href="#lien-he">Liên hệ</a>
+      </nav>
+
+      <a class="cta-top" id="topCta" href="https://web.e-pharmacy.vn/ai-chat?ref=duomen" target="_blank" rel="noreferrer">Tư vấn ngay</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Xuất xứ: Tây Ban Nha</div>
+          <h2>Bụng yên, ruột ổn với giải pháp men kép trong cùng 1 viên.</h2>
+          <p class="lead">
+            Hỗ trợ bổ sung lợi khuẩn và enzyme tiêu hóa cho cơ thể. Hỗ trợ tăng cường tiêu hóa,
+            giảm đầy bụng khó tiêu và hỗ trợ cải thiện rối loạn tiêu hóa do loạn khuẩn đường ruột.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" id="heroChat" href="https://web.e-pharmacy.vn/ai-chat?ref=duomen" target="_blank" rel="noreferrer">Chat tư vấn</a>
+            <a class="btn btn-secondary" id="heroCall" href="https://web.e-pharmacy.vn/start-call" target="_blank" rel="noreferrer">Video call</a>
+          </div>
+          <div class="fact-list">
+            <div class="fact">
+              <strong>05 tỷ</strong>
+              lợi khuẩn sống và thức ăn cho lợi khuẩn.
+            </div>
+            <div class="fact">
+              <strong>05 loại</strong>
+              men tiêu hóa từ nấm cho dạ dày.
+            </div>
+            <div class="fact">
+              <strong>2 trong 1</strong>
+              men vi sinh cho ruột và men tiêu hóa cho dạ dày.
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <div class="pack">
+            <div class="pack-box">
+              <div class="mini">Enzymax Duo Biotics</div>
+              <div class="title">Duo<br>Men</div>
+              <div class="mini">Bụng yên • Ruột ổn</div>
+            </div>
+            <div class="capsule-stack">
+              <div class="capsule"></div>
+              <div class="capsule"></div>
+              <div class="capsule"></div>
+              <div class="capsule"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gioi-thieu">
+      <div class="container">
+        <h3 class="section-title">Đối tượng sử dụng</h3>
+        <p class="section-copy">
+          Người bị rối loạn tiêu hoá với biểu hiện đầy bụng, khó tiêu, tiêu chảy. Người cần phục hồi hệ vi sinh đường ruột sau khi sử dụng kháng sinh hoặc uống rượu bia. Người có sự bài tiết enzyme tiêu hóa không đầy đủ hay từng phẫu thuật đường tiêu hóa trên.
+        </p>
+
+        <div class="symptom-grid">
+          <div class="card symptom-item">
+            <div class="icon-check">✓</div>
+            <div>Đầy bụng, khó tiêu, tiêu chảy.</div>
+          </div>
+          <div class="card symptom-item">
+            <div class="icon-check">✓</div>
+            <div>Cần phục hồi hệ vi sinh đường ruột sau kháng sinh hoặc rượu bia.</div>
+          </div>
+          <div class="card symptom-item">
+            <div class="icon-check">✓</div>
+            <div>Người có sự bài tiết enzyme tiêu hóa không đầy đủ.</div>
+          </div>
+          <div class="card symptom-item">
+            <div class="icon-check">✓</div>
+            <div>Người từng phẫu thuật đường tiêu hóa trên.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h3 class="section-title">Giải pháp 2 lớp trong 1 viên nang</h3>
+        <p class="section-copy">
+          Duo Men được giới thiệu như một giải pháp kết hợp đồng thời 02 hệ men trong cùng 1 viên:
+          men tiêu hóa cho dạ dày và men vi sinh cho ruột, giúp hỗ trợ tiêu hóa nhanh và cân bằng hệ vi sinh đường ruột.
+        </p>
+
+        <div class="benefit-grid">
+          <article class="card benefit-card">
+            <div class="benefit-tag">Men vi sinh</div>
+            <h4>Hỗ trợ cho ruột</h4>
+            <p>
+              Viên nang trong bổ sung 05 tỷ lợi khuẩn sống và thức ăn cho lợi khuẩn,
+              hỗ trợ cải thiện tiêu chảy nhờ cân bằng hệ vi sinh đường ruột.
+            </p>
+            <div class="benefit-highlight">Tập trung vào cân bằng hệ vi sinh đường ruột.</div>
+          </article>
+
+          <article class="card benefit-card">
+            <div class="benefit-tag">Men tiêu hóa</div>
+            <h4>Hỗ trợ cho dạ dày</h4>
+            <p>
+              Viên nang ngoài bổ sung 05 loại men tiêu hóa từ nấm,
+              hỗ trợ xử lý tình trạng đầy bụng khó tiêu và giúp giảm áp lực tiêu hóa cho ruột.
+            </p>
+            <div class="benefit-highlight">Tập trung vào hỗ trợ tiêu hóa sau bữa ăn chính.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <h3 class="section-title">Câu hỏi thường gặp</h3>
+        <p class="section-copy">
+          Bản HTML này mô phỏng lại nội dung chính của landing page hiện tại và thêm 2 nút nổi để điều hướng người dùng sang AI Chat và Video Call.
+        </p>
+
+        <div class="faq-grid faq-item">
+          <details open>
+            <summary>Duo Men dành cho ai?</summary>
+            <p>Người bị rối loạn tiêu hoá với biểu hiện đầy bụng, khó tiêu, tiêu chảy hoặc cần phục hồi hệ vi sinh đường ruột sau kháng sinh hay rượu bia.</p>
+          </details>
+          <details>
+            <summary>Hướng dẫn sử dụng như thế nào?</summary>
+            <p>Uống 1 đến 2 viên/ngày, mỗi lần 1 viên và uống vào đầu bữa ăn chính. Không dùng cho phụ nữ có thai, cho con bú hoặc người mẫn cảm với bất kỳ thành phần nào của sản phẩm.</p>
+          </details>
+          <details>
+            <summary>Tìm mua Duo Men ở đâu?</summary>
+            <p>Sản phẩm được giới thiệu là đã có mặt tại các bệnh viện và nhà thuốc uy tín trên toàn quốc.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lien-he">
+      <div class="container">
+        <h3 class="section-title">Liên hệ & thông tin doanh nghiệp</h3>
+        <div class="contact-box">
+          <div class="contact-panel">
+            <h4>CÔNG TY CỔ PHẦN MHD PHARMA</h4>
+            <p>Số 9B8-C9 Đường Số 10, Khu dân cư Dương Hồng Garden House, Xã Bình Hưng, Huyện Bình Chánh, Thành phố Hồ Chí Minh, Việt Nam.</p>
+            <p>Điện thoại: (028) 6680 8366</p>
+            <p>Giấy chứng nhận ĐKKD số 0311203203.</p>
+          </div>
+          <div class="contact-meta">
+            <div class="meta-box">
+              <strong>Số giấy xác nhận nội dung quảng cáo</strong>
+              Số 497/2025/XNQC-ATTP
+            </div>
+            <div class="meta-box">
+              <strong>Ghi chú</strong>
+              Thực phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh.
+            </div>
+            <div class="meta-box">
+              <strong>Mục tiêu landing page</strong>
+              Thêm 2 nút nổi dẫn sang AI Chat và Video Call để tăng chuyển đổi campaign.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="float-wrap">
+    <a class="float-btn chat track-link" id="floatChat" href="https://web.e-pharmacy.vn/ai-chat?ref=duomen" target="_blank" rel="noreferrer">
+      <span class="float-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10H17M7 14H13M20 11.6C20 16.1 16.19 19.7 11.5 19.7C10.13 19.7 8.84 19.39 7.69 18.85L4 20L5.03 16.67C4.38 15.53 4 14.22 4 12.83C4 8.33 7.81 4.7 12.5 4.7C17.19 4.7 20 7.1 20 11.6Z" stroke="white" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="float-label"><small>Hỗ trợ nhanh</small><strong>Chat tư vấn</strong></span>
+    </a>
+
+    <a class="float-btn call track-link" id="floatCall" href="https://web.e-pharmacy.vn/start-call" target="_blank" rel="noreferrer">
+      <span class="float-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 10.5V7.6C16 6.72 16 6.28 15.83 5.94C15.68 5.65 15.44 5.41 15.15 5.26C14.81 5.1 14.37 5.1 13.5 5.1H6.5C5.63 5.1 5.19 5.1 4.85 5.26C4.56 5.41 4.32 5.65 4.17 5.94C4 6.28 4 6.72 4 7.6V16.4C4 17.28 4 17.72 4.17 18.06C4.32 18.35 4.56 18.59 4.85 18.74C5.19 18.9 5.63 18.9 6.5 18.9H13.5C14.37 18.9 14.81 18.9 15.15 18.74C15.44 18.59 15.68 18.35 15.83 18.06C16 17.72 16 17.28 16 16.4V13.5L20 16.5V7.5L16 10.5Z" stroke="white" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="float-label"><small>Kết nối ngay</small><strong>Video call</strong></span>
+    </a>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div>Bản quyền © 2026 • HTML clone phục vụ demo tích hợp widget/CTA.</div>
+      <div class="disclaimer">Nội dung sản phẩm được mô phỏng theo trang hiện tại, không phải bản pixel-perfect.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const tracking = {
+        utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        ref: params.get('ref') || 'duomen'
+      };
+
+      const chatBase = 'https://web.e-pharmacy.vn/ai-chat';
+      const callBase = 'https://web.e-pharmacy.vn/start-call';
+
+      function withTracking(base, forceRef) {
+        const url = new URL(base);
+        if (tracking.utm_source) url.searchParams.set('utm_source', tracking.utm_source);
+        if (tracking.utm_medium) url.searchParams.set('utm_medium', tracking.utm_medium);
+        if (tracking.utm_campaign) url.searchParams.set('utm_campaign', tracking.utm_campaign);
+        if (forceRef || tracking.ref) url.searchParams.set('ref', tracking.ref || 'duomen');
+        return url.toString();
+      }
+
+      const chatUrl = withTracking(chatBase, true);
+      const callUrl = withTracking(callBase, false);
+
+      const map = {
+        topCta: chatUrl,
+        heroChat: chatUrl,
+        heroCall: callUrl,
+        floatChat: chatUrl,
+        floatCall: callUrl
+      };
+
+      Object.keys(map).forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el) el.href = map[id];
+      });
+
+      window.dataLayer = window.dataLayer || [];
+
+      document.querySelectorAll('.track-link').forEach(function (el) {
+        el.addEventListener('click', function () {
+          const type = el.id.toLowerCase().includes('chat') ? 'chat' : 'call';
+          window.dataLayer.push({
+            event: 'widget_click',
+            widget_type: type,
+            ref: tracking.ref || 'duomen',
+            utm_source: tracking.utm_source || undefined,
+            utm_medium: tracking.utm_medium || undefined,
+            utm_campaign: tracking.utm_campaign || undefined,
+            page_url: window.location.href,
+            clicked_at: new Date().toISOString()
+          });
+          console.log('dataLayer push', window.dataLayer[window.dataLayer.length - 1]);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
